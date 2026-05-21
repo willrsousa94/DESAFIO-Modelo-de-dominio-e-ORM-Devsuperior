@@ -3,7 +3,9 @@ package com.willrsousa.ormchallenge.entities;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_atividade")
@@ -22,6 +24,12 @@ public class Atividade {
 
     @OneToMany(mappedBy = "atividade")
     private List<Bloco> blocos = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "tb_participante_atividade",
+    joinColumns = @JoinColumn(name="partipante_id"),
+    inverseJoinColumns = @JoinColumn(name="atividade_id"))
+    private Set<Participante> participantes = new HashSet<>();
 
     public Atividade(){}
 
@@ -75,5 +83,9 @@ public class Atividade {
 
     public List<Bloco> getBlocos() {
         return blocos;
+    }
+
+    public Set<Participante> getParticipante() {
+        return participantes;
     }
 }
