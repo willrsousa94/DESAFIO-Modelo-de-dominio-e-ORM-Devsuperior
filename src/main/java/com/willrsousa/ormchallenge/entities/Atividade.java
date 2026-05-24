@@ -2,10 +2,7 @@ package com.willrsousa.ormchallenge.entities;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_atividade")
@@ -84,5 +81,18 @@ public class Atividade {
 
     public Set<Participante> getParticipante() {
         return participantes;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Atividade atividade = (Atividade) o;
+        return Objects.equals(id, atividade.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
